@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/header :: route-view-head"></th:block>
+<body style="background-color:#F5F3EE">
+<th:block th:include="fragments/top_navbar :: top_navbar"></th:block>
+
+<div class="container">
+    <br>
+
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+        <strong>New feature update!</strong> You can not pull logs.
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <label href="#" class="list-group-item active">
+                    How much data do u need
+                </label>
+                <a href="#" class="list-group-item"> view last 5 mins</a>
+                <a href="#" class="list-group-item">view last 10 mins</a>
+                <a href="#" class="list-group-item">view last 20 mins</a>
+                <a href="#" class="list-group-item">view last 30 mins</a>
+                <a href="#" class="list-group-item">view last 1 hour</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-default" style="height: 400px">
+                <div class="panel-body">
+                    last <label th:text="${param.interval + ' minutes...'}" class="label label-primary"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">© 2018 Interswitch Limited. All Rights Reserved.</div>
+    <br>
+</div>
+</body>
+</html>

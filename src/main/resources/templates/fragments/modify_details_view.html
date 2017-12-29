@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div th:fragment="modify_details_view">
+    <div th:attr="id=${'edit_route_' + route.requestId}" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="font-size: 12px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><label th:text="${'modify > ' + route.requestId}"></label></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">API Path:</label>
+                            <div class="col-sm-9">
+                                <input type="text" th:value="${route.path}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <key th:id="${'detail_view_verb_' + route.requestId}" th:attr="post_value=${route.verb}"></key>
+                            <label class="control-label col-sm-3">HTTP Method:</label>
+                            <div class="col-sm-9">
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${route.verb}">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu scrollable-menu-x" aria-labelledby="dropdownMenu2">
+                                        <li><a href="#">GET</a></li>
+                                        <li><a href="#">POST</a></li>
+                                        <li><a href="#">PUT</a></li>
+                                        <li><a href="#">DELETE</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <key th:id="${'detail_view_status_code_' + route.requestId}" th:attr="post_value=${route.responseStatus}"></key>
+                            <label class="control-label col-sm-3">HTTP Status:</label>
+                            <div class="col-sm-9">
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${route.responseStatus}">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu scrollable-menu-x always-show-cursor" aria-labelledby="dropdownMenu1">
+                                        <li th:each="code : ${httpStatusCode}">
+                                            <div class="container row custom-hover" style="width: 350px">
+                                                <div class="col-sm-2">
+                                                    <show th:text="${code.code}" class="label label-success"></show>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <show-message style="color: gray" th:text="${code.message}" th:code="${code.code}"></show-message>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <key th:id="${'detail_view_template_' + route.requestId}" th:attr="post_value=${route.routeType}"></key>
+                            <label class="control-label col-sm-3">Type:</label>
+                            <div class="col-sm-9">
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button"
+                                            th:id="${'edit_template_' + route.requestId}"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${route.routeType}">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu scrollable-menu-x"
+                                        th:attr="aria-labelledby=${'edit_template_' + route.requestId}">
+                                        <li><a href="#">Basic</a></li>
+                                        <li><a href="#">Mustache</a></li>
+                                        <li><a href="#">Groovy</a></li>
+                                        <li><a href="#">Freemarker</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="height: 10px">
+                            <key th:id="${'detail_view_environment_' + route.requestId}" th:attr="post_value=${route.environment}"></key>
+                            <label class="control-label col-sm-3">Environment:</label>
+                            <div class="col-sm-9 text-align-right">
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${route.environment}">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu scrollable-menu-x" aria-labelledby="dropdownMenu3">
+                                        <li><a href="#">UAT</a></li>
+                                        <li><a href="#">STAGING</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Template:</label>
+                            <div class="col-sm-9">
+                                <textarea th:id="${'detail_view_textarea_' + route.requestId}"  style="background-color:#EAECEE" class="form-control"
+                                          th:text="${route.responseBody}" rows="14"></textarea>
+                            </div>
+                        </div>
+                        <div style="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9">*will be treated as a <span class="label label-danger"
+                                                                              th:text="${route.routeType}"/> template
+                            </div>
+                        </div>
+                        <br>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm" th:onclick="${'submitRouteUpdate(''' + route.requestId + ''')'}">Save changes</button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

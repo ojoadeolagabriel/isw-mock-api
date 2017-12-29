@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/header :: route-view-head"></th:block>
+<body style="background-color:#F5F3EE">
+<th:block th:include="fragments/top_navbar :: top_navbar"></th:block>
+
+<div class="container">
+    <br>
+    <form method="post" action="" modelAttribute="searchFormData">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for a route starting with..." name="btnFilterRoute">
+            <span class="input-group-btn">
+                <button class="btn btn-default" style="background-color:#F5F5F5" type="submit"><span
+                        class="glyphicon glyphicon-search"/></button>
+            </span>
+        </div>
+    </form>
+
+    <div class="row" style="padding-bottom: 15px; color:gray;font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-weight: 500">
+        <div class="col-md-6 text-left"><small>view api-logs for the last <u><a href="logs?interval=15">15 mins</a></u> | <u><a href="logs?interval=30">30 mins</a></u> | <u><a href="logs?interval=60">1 hour</a></u></small></div>
+        <div class="col-md-6 text-right">
+            <small><label style="color:gray;font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-weight: 500"
+                          th:text="'// ' + ${routesUrl} + ' / 1000 ms'"/></small>
+        </div>
+    </div>
+
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+        <strong>New feature update!</strong> You can now filter for configured routes, above.
+    </div>
+
+    <div th:each="route : ${data}">
+        <div class="panel panel-default">
+            <th:block th:include="fragments/route-panel-body :: route-panel-body"></th:block>
+            <th:block th:include="fragments/route-panel-footer :: route-panel-footer"></th:block>
+            <th:block th:include="fragments/edit_details_view :: edit_details_view"></th:block>
+            <th:block th:include="fragments/modify_details_view :: modify_details_view"></th:block>
+        </div>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination pagination-sm">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="text-center">© 2018 Interswitch Limited. All Rights Reserved.</div>
+    <br>
+</div>
+</body>
+
+</html>

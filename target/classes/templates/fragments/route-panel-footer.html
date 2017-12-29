@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div class="container" th:fragment="route-panel-footer">
+    <div th:attr="id=${'footer_' + route.requestId}" class="panel-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                        th:attr="data-target= '#view_route_' + ${route.requestId}">
+                    Show details
+                </button>
+                <button th:text="${route.isOnline()} ? 'Disable' : 'Enable Route'" th:id="${'btn_route_status_' + route.requestId}" type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                        th:onclick="${'showRouteStateDialog(''' + route.requestId + ''')'}">
+                </button>
+            </div>
+            <div style="padding-top: 5px; color:gray;font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 12px"
+                 class="col-sm-6 text-right">
+                created on <label th:text="${route.getDateCreatedMessage()}"/>
+            </div>
+
+            <div th:attr="id='disable_' + ${route.requestId}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <div class="box">
+                                        <div class="box-content">
+                                            <h1 class="tag-title">Are you sure?</h1>
+                                            <hr/>
+                                            <p>Disabling <label th:text="${route.requestId}"/> would mean the url you
+                                                configured would temporariy be unavailable until this service is
+                                                restarted.</p>
+                                            <br/>
+                                            <a class="btn btn-block btn-primary">Learn more</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" th:onclick="${'suspend(''' + route.requestId + ''')'}" th:text="Yes"/>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:attr="id='enable_' + ${route.requestId}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <div class="box">
+                                        <div class="box-content">
+                                            <h1 class="tag-title">Enable route?</h1>
+                                            <hr/>
+                                            <p>Enabling <label th:text="${route.requestId}"/> ensures this route configured would resume availability.</p>
+                                            <br/>
+                                            <a href="ppc.html" class="btn btn-block btn-primary">Learn more</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" th:onclick="${'resume(''' + route.requestId + ''')'}" th:text="Yes"/>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</html>
