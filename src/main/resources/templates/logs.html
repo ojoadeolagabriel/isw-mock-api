@@ -34,7 +34,7 @@
                     <div class="panel-body">
                         <form method="post" action="" modelAttribute="searchFormData">
                             <div class="input-group">
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" style="background-color: #FDF5E6"
                                        placeholder="Filter messages.." name="btnFilterRoute">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" style="background-color:#F5F5F5" type="submit"><span
@@ -49,12 +49,11 @@
 
                         <label th:text="${#lists.size(data)}"/> entries over the last <label
                             th:text="${param.interval + ' minutes...'}" class="label label-success"/>
-                        <br><br>
+                        <hr>
                         <div th:each="log,rowStat : ${data}">
-                            <div class="row custom-hover-light"
+                            <div class="row custom-hover-light container-fluid"
                                  style="font-size: 13px;border-bottom: 1px solid #FAF9F9">
-                                <div style="color: #c0c0c0; width: 15px" class="col-sm-1"
-                                     th:text="${rowStat.index} + '.'"></div>
+                                <div style="color: #c0c0c0; width: 15px" class="col-sm-1" th:text="${rowStat.index} + '.'"></div>
                                 <div th:switch="${log.logType}">
                                     <div th:case="'instance-restart'" class="col-sm-2"><label class="label label-danger"
                                                                                               th:text="${log.logType}"/>
@@ -64,7 +63,7 @@
                                     <div th:case="'new-request'" class="col-sm-2"><label class="label label-default"
                                                                                          th:text="${log.logType}"/>
                                     </div>
-                                    <div th:case="'route-update'" class="col-sm-2"><label class="label label-success"
+                                    <div th:case="'route-update'" class="col-sm-2"><label class="label label-info"
                                                                                           th:text="${log.logType}"/>
                                     </div>
                                     <div th:case="'disable-route-event'" class="col-sm-2"><label
@@ -76,11 +75,13 @@
                                             th:text="${log.logType}"/>
                                     </div>
                                 </div>
-                                <div class="col-sm-4" style="color: gray;">
-                                    <log-message style="max-width:100%" th:text="${log.logMessage}"/>
+                                <div class="col-sm-5" style="display: table; overflow: auto;color: gray; display:inline-block; margin-right: 0px">
+                                    <p th:text="${log.logMessage}"/>
                                 </div>
                                 <div class="col-sm-3" th:text="${log.logStackTrace}"></div>
-                                <div class="col-sm-2" th:text="${log.getDateTimeCreatedMessage()}"></div>
+                                <div class="col-sm-1" style="width: 60px">
+                                    <p th:text="${log.getDateTimeCreatedMessage()}"/>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -72,7 +72,8 @@ public class RouteController {
             JsonObject jsonRequest = JsonObject.mapFrom(data);
             Log log = new Log();
             log.setLogType("route-update");
-            log.setLogMessage("API call to update route detected \r\n" + jsonRequest.toString());
+            log.setLogMessage("API call to update route detected : " + jsonRequest.toString());
+            log.setLogStackTrace("TRIGGERED_BY_SYS_ADMIN");
             log.setLogDate(DateTime.now().toDate().getTime());
             LoggerRouteDao.log(log);
 
@@ -119,6 +120,7 @@ public class RouteController {
         Log log = new Log();
         log.setLogType("disable-route-event");
         log.setLogMessage("API call to [disable route] detected : " + routeId);
+        log.setLogStackTrace("TRIGGERED_BY_SYS_ADMIN");
         log.setLogDate(DateTime.now().toDate().getTime());
         LoggerRouteDao.log(log);
 
@@ -136,6 +138,7 @@ public class RouteController {
         Log log = new Log();
         log.setLogType("enable-route-event");
         log.setLogMessage("API call to [enable route] detected : " + routeId);
+        log.setLogStackTrace("TRIGGERED_BY_SYS_ADMIN");
         log.setLogDate(DateTime.now().toDate().getTime());
         LoggerRouteDao.log(log);
 
