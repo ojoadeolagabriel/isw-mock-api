@@ -43,6 +43,6 @@ public class Log {
     private String logStackTrace;
 
     public String getDateTimeCreatedMessage() {
-        return new DateTime(logDate).toLocalDateTime().toString("dd/MM/yyyy @ hh:mm:ss a");
+        return new DateTime(logDate).toLocalDateTime().toString("dd MMM, hh:mm:ss");
     }
 }
