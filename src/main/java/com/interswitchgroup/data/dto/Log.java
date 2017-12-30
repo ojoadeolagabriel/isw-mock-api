@@ -1,5 +1,7 @@
 package com.interswitchgroup.data.dto;
 
+import org.joda.time.DateTime;
+
 public class Log {
     private String logMessage;
     private String logType;
@@ -39,4 +41,8 @@ public class Log {
     }
 
     private String logStackTrace;
+
+    public String getDateTimeCreatedMessage() {
+        return new DateTime(logDate).toLocalDateTime().toString("dd/MM/yyyy @ hh:mm:ss a");
+    }
 }

@@ -20,7 +20,6 @@ import java.util.List;
 public class LogContoller {
     @Value("${route.admin.url}")
     String routeAdminUrl;
-
     @Autowired
     ComponentConfig componentConfig;
     @Autowired

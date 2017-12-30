@@ -33,3 +33,7 @@
 .custom-hover:hover{
     background: #F8F8F8;
 }
+
+.custom-hover-light:hover{
+    background: #FAF9F9;
+}
