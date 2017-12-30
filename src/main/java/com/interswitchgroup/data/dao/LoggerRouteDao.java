@@ -8,6 +8,7 @@ import com.interswitchgroup.util.io.StringUtility;
 import jetbrains.exodus.entitystore.Entity;
 import jetbrains.exodus.entitystore.EntityIterable;
 import jetbrains.exodus.entitystore.StoreTransaction;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,42 @@ public class LoggerRouteDao {
         StoreTransaction txn = MockContext.store.beginTransaction();
         List<Log> logs = new ArrayList<>();
         try {
-            EntityIterable logDate = txn.find(LogSchema, "LogDate", startDate, endDate);
+            EntityIterable logDate = txn
+                    .find(LogSchema, "LogDate", startDate, endDate).reverse();
             for (Entity entity : logDate) {
+                Log log = getLog(entity);
+                logs.add(log);
+            }
+        } catch (Exception exc) {
+            return null;
+        } finally {
+            if (txn != null & !txn.isFinished()) {
+                txn.abort();
+            }
+        }
+        return logs;
+    }
+
+    public static List<Log> fetchAndFilterByDesc(String id, long startDate, long endDate) {
+        StoreTransaction txn = MockContext.store.beginTransaction();
+        List<Log> logs = new ArrayList<>();
+        try {
+            List<Entity> logsResult = new ArrayList<>();
+            txn.find(LogSchema, "LogDate", startDate, endDate)
+                .reverse()
+                .forEach(c -> {
+                    if(!StringUtils.isEmpty(id)) {
+                        if (c.getProperty("LogMessage").toString().contains(id)) {
+                            logsResult.add(c);
+                        } else {
+
+                        }
+                    }else{
+                        logsResult.add(c);
+                    }
+                });
+
+            for (Entity entity : logsResult) {
                 Log log = getLog(entity);
                 logs.add(log);
             }

@@ -1,6 +1,8 @@
 package com.interswitchgroup.api.admin;
 
+import com.interswitchgroup.data.dao.LoggerRouteDao;
 import com.interswitchgroup.data.dao.ProxyRouteDao;
+import com.interswitchgroup.data.dto.Log;
 import com.interswitchgroup.data.dto.Route;
 import com.interswitchgroup.proxy.MockContext;
 import com.interswitchgroup.util.consts.AppConstants;
@@ -10,6 +12,7 @@ import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonObject;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,6 +69,13 @@ public class RouteController {
             route.setResponseBody(data.getResponseBody());
             boolean isSuccess = ProxyRouteDao.updateRoute(route);
 
+            JsonObject jsonRequest = JsonObject.mapFrom(data);
+            Log log = new Log();
+            log.setLogType("route-update");
+            log.setLogMessage("API call to update route detected \r\n" + jsonRequest.toString());
+            log.setLogDate(DateTime.now().toDate().getTime());
+            LoggerRouteDao.log(log);
+
             String msg = new JsonObject().put(AppConstants.ResponseCode, isSuccess ? ResponseCodes.SUCCESS.code : ResponseCodes.NOT_FOUND.code).toString();
             return new ResponseEntity<>(msg, HttpStatus.OK);
         } else {
@@ -105,6 +115,13 @@ public class RouteController {
     public String disableRoute(@RequestParam(name = "id") String routeId, HttpServletResponse response) {
         MockContext.vertx.eventBus().publish(NameGen.generatePauseRouteHandlerDescriptor(routeId), "disable");
         response.addHeader("Content-type", "application/json");
+
+        Log log = new Log();
+        log.setLogType("disable-route-event");
+        log.setLogMessage("API call to [disable route] detected : " + routeId);
+        log.setLogDate(DateTime.now().toDate().getTime());
+        LoggerRouteDao.log(log);
+
         return new JsonObject()
                 .put("responseCode", ResponseCodes.SUCCESS.code)
                 .put("responseMessage", "Successfully processed request").toString();
@@ -115,6 +132,13 @@ public class RouteController {
     public String enableRoute(@RequestParam(name = "id") String routeId, HttpServletResponse response) {
         MockContext.vertx.eventBus().publish(NameGen.generatePauseRouteHandlerDescriptor(routeId), "enable");
         response.addHeader("Content-type", "application/json");
+
+        Log log = new Log();
+        log.setLogType("enable-route-event");
+        log.setLogMessage("API call to [enable route] detected : " + routeId);
+        log.setLogDate(DateTime.now().toDate().getTime());
+        LoggerRouteDao.log(log);
+
         return new JsonObject()
                 .put("responseCode", ResponseCodes.SUCCESS.code)
                 .put("responseMessage", "Successfully processed request").toString();

@@ -41,6 +41,8 @@
                                             class="glyphicon glyphicon-search"/></button>
                                 </span>
                             </div>
+                            <input id="filterInterval" name="filterInterval" type="hidden"
+                                   th:value="${param.interval}"/>
                         </form>
 
                         <br>
@@ -51,21 +53,34 @@
                         <div th:each="log,rowStat : ${data}">
                             <div class="row custom-hover-light"
                                  style="font-size: 13px;border-bottom: 1px solid #FAF9F9">
-                                <div style="color: #c0c0c0; width: 15px" class="col-md-1"
+                                <div style="color: #c0c0c0; width: 15px" class="col-sm-1"
                                      th:text="${rowStat.index} + '.'"></div>
                                 <div th:switch="${log.logType}">
-                                    <div th:case="'instance-restart'" class="col-md-2"><label class="label label-danger"
+                                    <div th:case="'instance-restart'" class="col-sm-2"><label class="label label-danger"
                                                                                               th:text="${log.logType}"/>
                                     </div>
-                                    <div th:case="'new-route'" class="col-md-2"><label class="label label-warning"
+                                    <div th:case="'new-route'" class="col-sm-2"><label class="label label-warning"
                                                                                        th:text="${log.logType}"/></div>
-                                    <div th:case="'new-request'" class="col-md-2"><label class="label label-default"
+                                    <div th:case="'new-request'" class="col-sm-2"><label class="label label-default"
                                                                                          th:text="${log.logType}"/>
                                     </div>
+                                    <div th:case="'route-update'" class="col-sm-2"><label class="label label-success"
+                                                                                          th:text="${log.logType}"/>
+                                    </div>
+                                    <div th:case="'disable-route-event'" class="col-sm-2"><label
+                                            style="background-color: #FF851B" class="label label-success"
+                                            th:text="${log.logType}"/>
+                                    </div>
+                                    <div th:case="'enable-route-event'" class="col-sm-2"><label
+                                            style="background-color: #FF851B" class="label label-success"
+                                            th:text="${log.logType}"/>
+                                    </div>
                                 </div>
-                                <div class="col-md-4" style="color: gray" th:text="${log.logMessage}"></div>
-                                <div class="col-md-3" th:text="${log.logStackTrace}"></div>
-                                <div class="col-md-2" th:text="${log.getDateTimeCreatedMessage()}"></div>
+                                <div class="col-sm-4" style="color: gray;">
+                                    <log-message style="max-width:100%" th:text="${log.logMessage}"/>
+                                </div>
+                                <div class="col-sm-3" th:text="${log.logStackTrace}"></div>
+                                <div class="col-sm-2" th:text="${log.getDateTimeCreatedMessage()}"></div>
                             </div>
                         </div>
                     </div>

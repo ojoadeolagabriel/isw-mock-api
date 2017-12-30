@@ -32,4 +32,14 @@ public class LogContoller {
         modelAndView.addObject("data", fetch);
         return modelAndView;
     }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView post(
+            @RequestParam(required = false, defaultValue = "120") int filterInterval,
+            @RequestParam(value = "btnFilterRoute", required = false) String filterCriteria) {
+        List<Log> fetch = LoggerRouteDao.fetchAndFilterByDesc(filterCriteria, DateTime.now().plusMinutes(-filterInterval).toDate().getTime(), DateTime.now().toDate().getTime());
+        ModelAndView modelAndView = new ModelAndView("logs");
+        modelAndView.addObject("data", fetch);
+        return modelAndView;
+    }
 }

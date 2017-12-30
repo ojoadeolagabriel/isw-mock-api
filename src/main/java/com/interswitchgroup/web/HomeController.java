@@ -38,8 +38,13 @@ public class HomeController {
     @Autowired
     HttpStatusCodeDao httpStatusCodeDao;
 
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
     @RequestMapping("/home")
-    public Future<ModelAndView> home(@RequestParam(value = "btnFilterRoute",required = false) String filterCriteria){
+    public Future<ModelAndView> home(@RequestParam(value = "btnFilterRoute", required = false) String filterCriteria){
         CompletableFuture<ModelAndView> future = new CompletableFuture<>();
         List<CompletableFuture<String>> tasks = new ArrayList<>();
 
