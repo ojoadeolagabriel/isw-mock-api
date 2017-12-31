@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -49,7 +51,13 @@ public class HomeController {
         List<CompletableFuture<String>> tasks = new ArrayList<>();
 
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("routesUrl", "http://<host_url>:" + componentConfig.adminServerPort + routeAdminUrl + "/routes");
+        String ip = "<host_url>";
+        try {
+            ip = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        modelAndView.addObject("routesUrl", "http://" + ip + ":" + componentConfig.adminServerPort + routeAdminUrl + "/routes");
         List<HttpStatusCodeInfo> codes = httpStatusCodeDao.codes();
         modelAndView.addObject("httpStatusCode", codes);
 
