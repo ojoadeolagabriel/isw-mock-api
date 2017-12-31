@@ -111,7 +111,7 @@ function suspend(routeId){
     $.get(routeHelper.allRoutesBasePath + '/disable?id=' + routeId, function (data) {
         var modalId = '#disable_' + routeId;
         if(data.responseCode = respCode.Success){
-            $('#btn_route_status_' + routeId).text("Enable route")
+            $('#btn_route_status_' + routeId).text("Enable Route")
             $(modalId).modal('hide');
         }else{
             alert("could not process route request! try again later")
