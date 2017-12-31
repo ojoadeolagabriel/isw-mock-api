@@ -50,3 +50,7 @@ body {
     padding-right:0px !important;
     margin-right:0px !important;
 }
+
+.panel {
+    box-shadow: none;
+}
