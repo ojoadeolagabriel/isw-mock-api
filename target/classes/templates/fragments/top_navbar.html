@@ -2,18 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <div th:fragment="top_navbar">
-    <nav class="navbar navbar-default navbar-fixed-top" style="background-color:#00425F">
-        <div class="col-md-3">
-            <a href="home"><h4 style="color:white; padding-top:5px">Interswitch <u>API MOCK</u></h4></a>
-        </div>
-        <div class="col-md-7" style="padding-top:7px">
-            <!--<button class="btn btn-default ">Create Route +</button>-->
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-1">
-            <img th:src="@{/img/interswitchlogo.png}" width="105" height="43"/>
-        </div>
-    </nav>
+
+    <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-fixed-top" style="background-color:#00425F">
+            <div class="col-md-3">
+                <a href="home"><h4 style="color:white; padding-top:5px">Interswitch <u>API MOCK</u></h4></a>
+            </div>
+            <div class="col-md-6" style="padding-top:7px">
+                <!--<button class="btn btn-default ">Create Route +</button>-->
+            </div>
+            <div class="col-md-2 text-right">
+                <button class="btn btn-danger pull-right" style="background-color: #f44336; margin-top:7px">Test Route?</button>
+            </div>
+            <div class="col-md-1">
+                <img th:src="@{/img/interswitchlogo.png}" width="105" height="43"/>
+            </div>
+        </nav>
+    </div>
 
     <br>
     <br>

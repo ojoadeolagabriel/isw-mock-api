@@ -48,6 +48,7 @@ public class RestMockServiceVerticle extends MockServiceBaseVerticle {
                 String routeType = StringUtility.isEmpty(handler.request().getHeader(AppConstants.RouteType), "Basic");
                 String env = StringUtility.isEmpty(handler.request().getHeader(AppConstants.Environment), environment);
                 String createdBy = StringUtility.isEmpty(handler.request().getHeader(AppConstants.CreatedBy), "Sysadmin");
+                String group = StringUtility.isEmpty(handler.request().getHeader(AppConstants.Group), "default");
                 maskedFields = StringUtility.isEmpty(handler.request().getHeader(AppConstants.MaskedFields), "");
 
                 String responseBody;
@@ -64,7 +65,8 @@ public class RestMockServiceVerticle extends MockServiceBaseVerticle {
                     if (path.startsWith("//"))
                         path = path.replace("//", "/");
 
-                    persistProxyRoute(path, verb, headers, status, contentType, contentEncoding, responseBody, requestId, delay, timeOut, routeType, env, createdBy);
+                    persistProxyRoute(path, verb, headers, status, contentType, contentEncoding,
+                            responseBody, requestId, delay, timeOut, routeType, env, createdBy, group);
                     int mockPort = SpringContext.getConfig().mockPort;
                     String response = buildResponse("9000",
                             String.format("Route at url - [ http://localhost:%d/%s%s ] is now available", mockPort, environment, path));
@@ -212,8 +214,7 @@ public class RestMockServiceVerticle extends MockServiceBaseVerticle {
 
     /**
      * persist route
-     *
-     * @param path
+     *  @param path
      * @param verb
      * @param headers
      * @param status
@@ -226,9 +227,11 @@ public class RestMockServiceVerticle extends MockServiceBaseVerticle {
      * @param routeType
      * @param env
      * @param createdBy
+     * @param group
      */
-    private void persistProxyRoute(String path, String verb, String headers, String status, String contentType, String contentEncoding, String responseBody, String requestId, int delay, int timeOut, String routeType, String env, String createdBy) {
-        ProxyRouteDao.persistRoute(path, verb, headers, status, contentType, contentEncoding, responseBody, requestId, delay, timeOut, routeType, createdBy);
+    private void persistProxyRoute(String path, String verb, String headers, String status, String contentType, String contentEncoding, String responseBody, String requestId, int delay, int timeOut, String routeType, String env, String createdBy, String group) {
+        ProxyRouteDao.persistRoute(path, verb, headers, status, contentType, contentEncoding,
+                responseBody, requestId, delay, timeOut, routeType, createdBy, group);
     }
 
     private void initiateProxyRoute(String path, String verb, String headers, String status, String contentType,

@@ -29,4 +29,5 @@ public class AppConstants {
     public static final String RequestCode = "requestCode";
     public static final String ResponseCode = "responseCode";
     public static final String RequestMessage = "requestMessage";
+    public static final String Group = "group";
 }
