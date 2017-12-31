@@ -14,7 +14,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">API Path:</label>
                             <div class="col-sm-9">
-                                <u><p class="form-control-static" th:text="${route.path}"></p></u>
+                                <u><label class="form-control-static" th:text="${route.path}"></label></u>
                             </div>
                         </div>
                         <div class="form-group">
@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Template:</label>
                             <div class="col-sm-9">
-                                <text-r><code-r class="cpp" th:text="${route.responseBody}" >...</code-r></text-r>
+                                <text-r><cdisplay style="height: 300px;  white-space: pre" class="" th:text="${route.responseBody}" /></text-r>
                             </div>
                         </div>
                         <div style="row">

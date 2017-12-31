@@ -1,38 +1,38 @@
 $(document).ready(function(){
 
-    hljs.configure({useBR: true});
-    $('text-r code-r').each(function(i, block) {
+    hljs.configure({useBR: false});
+    $('text-r cdisplay').each(function(i, block) {
         hljs.highlightBlock(block);
     });
 
     $('.dropdown').each(function (key, dropdown) {
-            var $dropdown = $(dropdown);
-            $dropdown.find('.dropdown-menu a').on('click', function () {
-                $dropdown.find('button').text($(this).text()).append(' <span class="caret"></span>');
+        var $dropdown = $(dropdown);
+        $dropdown.find('.dropdown-menu a').on('click', function () {
+            $dropdown.find('button').text($(this).text()).append(' <span class="caret"></span>');
 
-                var spanElement = $dropdown.parent().parent().find('key[post_value]');
-                if(spanElement.length = 1)
-                    spanElement.attr('post_value', $(this).text());
-            });
+            var spanElement = $dropdown.parent().parent().find('key[post_value]');
+            if(spanElement.length = 1)
+                spanElement.attr('post_value', $(this).text());
+        });
     });
 
     $('.dropdown').each(function (key, dropdown) {
-            var $dropdown = $(dropdown);
-           $dropdown.find('show').on('click', function () {
-               $dropdown.find('button').text($(this).text()).append(' <span class="caret"></span>');
+        var $dropdown = $(dropdown);
+        $dropdown.find('show').on('click', function () {
+        $dropdown.find('button').text($(this).text()).append(' <span class="caret"></span>');
 
-               var spanElement = $dropdown.parent().parent().find('key[post_value]');
-               if(spanElement.length = 1)
-                   spanElement.attr('post_value', $(this).text());
-           });
+        var spanElement = $dropdown.parent().parent().find('key[post_value]');
+        if(spanElement.length = 1)
+           spanElement.attr('post_value', $(this).text());
+        });
 
-           $dropdown.find('show-message').on('click', function () {
-              $dropdown.find('button').text($(this).attr('code') + ' - ' + $(this).text()).append(' <span class="caret"></span>');
+        $dropdown.find('show-message').on('click', function () {
+        $dropdown.find('button').text($(this).attr('code') + ' - ' + $(this).text()).append(' <span class="caret"></span>');
 
-              var spanElement = $dropdown.parent().parent().find('key[post_value]');
-              if(spanElement.length = 1)
-                  spanElement.attr('post_value', $(this).attr('code'));
-          });
+        var spanElement = $dropdown.parent().parent().find('key[post_value]');
+        if(spanElement.length = 1)
+          spanElement.attr('post_value', $(this).attr('code'));
+        });
     });
 })
 
