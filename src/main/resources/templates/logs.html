@@ -59,8 +59,8 @@
                                     <div th:case="'instance-restart'" class="col-sm-2"><label class="label label-danger"
                                                                                               th:text="${log.logType}"/>
                                     </div>
-                                    <div th:case="'process-restarted'" class="col-sm-2"><label class="label label-danger"
-                                                                                              th:text="${log.logType}"/>
+                                    <div th:case="'process-restarted'"  class="col-sm-2">
+                                        <label class="label label-danger" style="background-color: #f44336" th:text="${log.logType}"/>
                                     </div>
                                     <div th:case="'new-route'" class="col-sm-2"><label class="label label-warning"
                                                                                        th:text="${log.logType}"/></div>
