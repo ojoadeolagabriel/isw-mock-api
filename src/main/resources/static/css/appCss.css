@@ -37,3 +37,16 @@
 .custom-hover-light:hover{
     background: #FAF9F9;
 }
+
+.modal {
+ overflow: auto; padding-right: 0px !important;
+}
+
+.modal-open {
+    overflow: auto; padding-right: 0px !important;
+}
+
+body {
+    padding-right:0px !important;
+    margin-right:0px !important;
+}

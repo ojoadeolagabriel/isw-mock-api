@@ -21,7 +21,7 @@ $(document).ready(function(){
            });
 
            $dropdown.find('show-message').on('click', function () {
-              $dropdown.find('button').text($(this).attr('code') + ' - ' + $(this).text()).append(' <span class="caret"></span>');
+              $dropdown.find('button').text($(this).attr('code') + ' - ' + $(this).te).append(' <span class="caret"></span>');
 
               var spanElement = $dropdown.parent().parent().find('key[post_value]');
               if(spanElement.length = 1)
