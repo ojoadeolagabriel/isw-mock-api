@@ -1,4 +1,10 @@
 $(document).ready(function(){
+
+    hljs.configure({useBR: true});
+    $('text-r code-r').each(function(i, block) {
+        hljs.highlightBlock(block);
+    });
+
     $('.dropdown').each(function (key, dropdown) {
             var $dropdown = $(dropdown);
             $dropdown.find('.dropdown-menu a').on('click', function () {
