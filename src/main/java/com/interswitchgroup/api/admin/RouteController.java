@@ -71,7 +71,7 @@ public class RouteController {
 
             JsonObject jsonRequest = JsonObject.mapFrom(data);
             Log log = new Log();
-            log.setLogType("route-update");
+            log.setLogType("route-info-updated");
             log.setLogMessage("API call to update route detected : " + jsonRequest.toString());
             log.setLogStackTrace("TRIGGERED_BY_SYS_ADMIN");
             log.setLogDate(DateTime.now().toDate().getTime());

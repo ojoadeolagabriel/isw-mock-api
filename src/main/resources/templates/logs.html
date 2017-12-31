@@ -59,16 +59,22 @@
                                     <div th:case="'instance-restart'" class="col-sm-2"><label class="label label-danger"
                                                                                               th:text="${log.logType}"/>
                                     </div>
+                                    <div th:case="'process-restarted'" class="col-sm-2"><label class="label label-danger"
+                                                                                              th:text="${log.logType}"/>
+                                    </div>
                                     <div th:case="'new-route'" class="col-sm-2"><label class="label label-warning"
                                                                                        th:text="${log.logType}"/></div>
                                     <div th:case="'new-request'" class="col-sm-2"><label class="label label-default"
                                                                                          th:text="${log.logType}"/>
                                     </div>
-                                    <div th:case="'route-update'" class="col-sm-2"><label class="label label-info"
-                                                                                          th:text="${log.logType}"/>
+                                    <div th:case="'route-update'"  class="col-sm-2">
+                                        <label style="background-color: #337ab7" class="label label-info" th:text="${log.logType}"/>
+                                    </div>
+                                    <div th:case="'route-info-updated'"  class="col-sm-2">
+                                        <label style="background-color: #337ab7" class="label label-info" th:text="${log.logType}"/>
                                     </div>
                                     <div th:case="'disable-route-event'" class="col-sm-2"><label
-                                            style="background-color: #FF851B" class="label label-success"
+                                            style="background-color: #cd5f00" class="label label-success"
                                             th:text="${log.logType}"/>
                                     </div>
                                     <div th:case="'enable-route-event'" class="col-sm-2"><label
