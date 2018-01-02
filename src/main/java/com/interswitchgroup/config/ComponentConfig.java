@@ -28,6 +28,8 @@ public class ComponentConfig {
     public int adminServerPort;
     @Value("${route.mock.processors-per-verticle:1}")
     public int processorsPerVerticle;
+    @Value("${route.runtime.max-listeners:1000}")
+    public int maxRouteVericleListeners;
 
     @Value("${route.runtime.default-environment:uat}")
     public String routeRuntimeDefaultEnvironment;
