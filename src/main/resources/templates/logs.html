@@ -11,7 +11,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                 aria-hidden="true">&times;</span></button>
         <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
-        <strong>New feature update!</strong> You can not pull logs.
+        <strong>New feature update!</strong> You can now view log details by clicking on the message below.
     </div>
 
     <div class="row">
@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-5" style="display: table; overflow: auto;color: gray; display:inline-block; margin-right: 0px">
-                                    <a style="color: gray" th:text="${log.logMessage}"/>
+                                    <a style="color: gray;  cursor: pointer;" th:text="${log.logMessage}" th:uuid="${log.guid}"/>
                                 </div>
                                 <div class="col-sm-3" th:text="${log.logStackTrace}"></div>
                                 <div class="col-sm-1" style="width: 60px">

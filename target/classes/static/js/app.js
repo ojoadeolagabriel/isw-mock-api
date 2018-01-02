@@ -42,6 +42,31 @@ var respCode = {
     NotPermitted : "10405",
 }
 
+var logHelper = {
+    showLogDetail : function(uuid){
+        $('#log_datail').modal('show');
+        $.ajax({
+            url: '/logs/log-detail?uuid=' + uuid,
+            type: "get",
+            success : function(data) {
+                showLogDetailInformation(data)
+            },
+            error : function(e){
+                alert(e);
+            }
+        })
+    },
+    showLogDetailInformation : function(data){
+        $("#log_detail_url").text(data.logUrlInformation);
+        $("#log_detail_extra_message").text(data.logMessageExtra);
+        $("#log_detail_request_data").text(data.logRequestData);
+        $("#log_detail_guid").text(data.guid);
+        $("#log_detail_response_data").text(data.logResponseData);
+        $("#log_detail_message").text(data.logMessage);
+        $("#log_detail_log_type").text(data.logType);
+    }
+}
+
 var routeHelper = {
     allRoutesBasePath : "http://localhost:8092/isw-mock/administration/routes",
     isValid : function(routeId){
