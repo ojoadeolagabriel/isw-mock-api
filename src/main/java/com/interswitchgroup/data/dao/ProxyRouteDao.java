@@ -22,7 +22,7 @@ public class ProxyRouteDao {
         StoreTransaction txn = MockContext.store.beginTransaction();
         List<Route> routes = new ArrayList<>();
         try {
-            EntityIterable entities = txn.findStartingWith(RouteSchema, AppConstants.RequestId, id);
+            EntityIterable entities = txn.findStartingWith(RouteSchema, AppConstants.RequestId, id).reverse();
             for (Entity entity : entities) {
                 Route routeEntity = getRoute(entity);
                 routes.add(routeEntity);
