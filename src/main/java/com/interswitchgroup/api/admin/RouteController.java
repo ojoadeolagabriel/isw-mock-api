@@ -1,5 +1,6 @@
 package com.interswitchgroup.api.admin;
 
+import com.interswitchgroup.api.BaseController;
 import com.interswitchgroup.data.dao.LoggerRouteDao;
 import com.interswitchgroup.data.dao.ProxyRouteDao;
 import com.interswitchgroup.data.dto.Log;
@@ -26,7 +27,7 @@ import java.util.concurrent.Future;
 
 @RestController
 @RequestMapping("${route.admin.url}")
-public class RouteController {
+public class RouteController extends BaseController {
 
     @RequestMapping(value = "/routes/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<Route>> getRoutes(@PathVariable(name = "id") String id) {
@@ -113,9 +114,10 @@ public class RouteController {
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/routes/disable")
-    public String disableRoute(@RequestParam(name = "id") String routeId, HttpServletResponse response) {
+    public ResponseEntity<String> disableRoute(@RequestParam(name = "id") String routeId) {
         MockContext.vertx.eventBus().publish(NameGen.generatePauseRouteHandlerDescriptor(routeId), "disable");
-        response.addHeader("Content-type", "application/json");
+        HttpHeaders httpHeaders = new HttpHeaders();
+        addContentType(httpHeaders);
 
         Log log = new Log();
         log.setLogType("disable-route-event");
@@ -124,9 +126,11 @@ public class RouteController {
         log.setLogDate(DateTime.now().toDate().getTime());
         LoggerRouteDao.log(log);
 
-        return new JsonObject()
+        String jsonMsg = new JsonObject()
                 .put("responseCode", ResponseCodes.SUCCESS.code)
                 .put("responseMessage", "Successfully processed request").toString();
+
+        return new ResponseEntity<>(jsonMsg, httpHeaders, HttpStatus.OK);
     }
 
     @ResponseStatus(HttpStatus.OK)
