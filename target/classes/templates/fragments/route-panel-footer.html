@@ -28,7 +28,7 @@
                                         <div class="box-content">
                                             <h1 class="tag-title">Are you sure?</h1>
                                             <hr/>
-                                            <p>Disabling <label th:text="${route.requestId}"/> would mean the url you
+                                            <p>Disabling <span th:text="[" style="color:red"/> <label th:text="${route.requestId}"/> <span th:text="]" style="color:red"/> would mean the url you
                                                 configured would temporariy be unavailable until this service is
                                                 restarted.</p>
                                             <br/>
@@ -56,7 +56,7 @@
                                         <div class="box-content">
                                             <h1 class="tag-title">Enable route?</h1>
                                             <hr/>
-                                            <p>Enabling <label th:text="${route.requestId}"/> ensures this route configured would resume availability.</p>
+                                            <p>Enabling <span th:text="[" style="color:red"/> <label th:text="${route.requestId}"/> <span th:text="]" style="color:red"/> ensures this route configured would resume availability.</p>
                                             <br/>
                                             <a href="ppc.html" class="btn btn-block btn-primary">Learn more</a>
                                         </div>
