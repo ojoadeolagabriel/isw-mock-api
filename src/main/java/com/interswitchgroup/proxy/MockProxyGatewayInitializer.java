@@ -7,6 +7,7 @@ import com.interswitchgroup.data.dto.Log;
 import com.interswitchgroup.data.dto.Route;
 import com.interswitchgroup.util.SpringContext;
 import com.interswitchgroup.util.consts.AppConstants;
+import com.interswitchgroup.util.consts.LogType;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.json.JsonObject;
 import org.joda.time.DateTime;
@@ -24,7 +25,7 @@ public class MockProxyGatewayInitializer {
         startDefaultRoutes();
 
         Log log = new Log();
-        log.setLogType("process-restarted");
+        log.setLogType(LogType.STARTING_SERVICE.getLogType());
         log.setLogMessage("Instance restart was detected! kindly confirm from the system admin that this was the intended action [ no reason given]");
         log.setLogStackTrace("TRIGGERED_BY_SYS_ADMIN");
         log.setLogDate(DateTime.now().toDate().getTime());
@@ -39,7 +40,7 @@ public class MockProxyGatewayInitializer {
     private static void startListeners(int defaultListenerCounter, String routeRuntimeDefaultEnvironment) {
         JsonObject config = new JsonObject();
         config.put(AppConstants.Environment, routeRuntimeDefaultEnvironment);
-        MockContext.vertx.deployVerticle(RestMockServiceVerticle.class.getName(),
+        MockContext.getVertxInstance().deployVerticle(RestMockServiceVerticle.class.getName(),
                 new DeploymentOptions()
                         .setConfig(config)
                         .setInstances(defaultListenerCounter));
@@ -51,7 +52,7 @@ public class MockProxyGatewayInitializer {
             config.put("Route", JsonObject.mapFrom(route));
             config.put("Environment", routeRuntimeDefaultEnvironment);
 
-            MockContext.vertx.deployVerticle(RestMockServiceVerticle.class.getName(), new DeploymentOptions().setInstances(processorsPerVerticle).setConfig(config), handler -> {
+            MockContext.getVertxInstance().deployVerticle(RestMockServiceVerticle.class.getName(), new DeploymentOptions().setInstances(processorsPerVerticle).setConfig(config), handler -> {
                 if (handler.succeeded()) {
 
                 }

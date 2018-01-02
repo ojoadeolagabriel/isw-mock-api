@@ -71,14 +71,14 @@
                                         <label style="background-color: #337ab7" class="label label-info" th:text="${log.logType}"/>
                                     </div>
                                     <div th:case="'route-info-updated'"  class="col-sm-2">
-                                        <label style="background-color: #337ab7" class="label label-info" th:text="${log.logType}"/>
+                                        <label class="label label-success" th:text="${log.logType}"/>
                                     </div>
                                     <div th:case="'disable-route-event'" class="col-sm-2"><label
-                                            style="background-color: #cd5f00" class="label label-success"
+                                            style="background-color: gray" class="label label-success"
                                             th:text="${log.logType}"/>
                                     </div>
                                     <div th:case="'enable-route-event'" class="col-sm-2"><label
-                                            style="background-color: #FF851B" class="label label-success"
+                                            style="background-color: gray" class="label label-success"
                                             th:text="${log.logType}"/>
                                     </div>
                                 </div>

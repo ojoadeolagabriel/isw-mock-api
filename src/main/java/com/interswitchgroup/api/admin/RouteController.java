@@ -7,6 +7,7 @@ import com.interswitchgroup.data.dto.Log;
 import com.interswitchgroup.data.dto.Route;
 import com.interswitchgroup.proxy.MockContext;
 import com.interswitchgroup.util.consts.AppConstants;
+import com.interswitchgroup.util.consts.LogType;
 import com.interswitchgroup.util.generator.NameGen;
 import com.interswitchgroup.util.response.ResponseCodes;
 import io.vertx.core.eventbus.DeliveryOptions;
@@ -72,7 +73,7 @@ public class RouteController extends BaseController {
 
             JsonObject jsonRequest = JsonObject.mapFrom(data);
             Log log = new Log();
-            log.setLogType("route-info-updated");
+            log.setLogType(LogType.UPDATE_ROUTE_INFORMATION.getLogType());
             log.setLogMessage("API call to update route detected : " + jsonRequest.toString());
             log.setLogStackTrace("TRIGGERED_BY_SYS_ADMIN");
             log.setLogDate(DateTime.now().toDate().getTime());
@@ -120,7 +121,7 @@ public class RouteController extends BaseController {
         addContentType(httpHeaders);
 
         Log log = new Log();
-        log.setLogType("disable-route-event");
+        log.setLogType(LogType.DISABLE_ROUTE.getLogType());
         log.setLogMessage("API call to [disable route] detected : " + routeId);
         log.setLogStackTrace("TRIGGERED_BY_SYS_ADMIN");
         log.setLogDate(DateTime.now().toDate().getTime());
@@ -140,7 +141,7 @@ public class RouteController extends BaseController {
         response.addHeader("Content-type", "application/json");
 
         Log log = new Log();
-        log.setLogType("enable-route-event");
+        log.setLogType(LogType.ENABLE_ROUTE.getLogType());
         log.setLogMessage("API call to [enable route] detected : " + routeId);
         log.setLogStackTrace("TRIGGERED_BY_SYS_ADMIN");
         log.setLogDate(DateTime.now().toDate().getTime());

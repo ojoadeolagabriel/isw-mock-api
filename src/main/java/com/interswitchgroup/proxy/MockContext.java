@@ -16,10 +16,16 @@ public class MockContext {
     public static Vertx vertx;
     public static PersistentEntityStoreImpl store;
 
+    public static Vertx getVertxInstance() {
+        return vertx;
+    }
+
     public static void init(int serverPort, int adminServerPort, String persistenceStorePath) {
         initPersistenceStore(persistenceStorePath);
 
-        vertx = Vertx.vertx(new VertxOptions() {{ setWorkerPoolSize(5000); }});
+        vertx = Vertx.vertx(new VertxOptions() {{
+            setWorkerPoolSize(5000);
+        }});
         HttpServer httpServer = vertx.createHttpServer();
         router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
