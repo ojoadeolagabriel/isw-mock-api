@@ -20,6 +20,11 @@
   margin-left: 140px;
 }
 
+@font-face {
+ font-family: MockItProximaFont;
+ src: url(../font/ProximaNovaSoft-Regular.otf);
+}
+
 .scrollable-menu-x {
     height: auto;
     max-height: 450px;

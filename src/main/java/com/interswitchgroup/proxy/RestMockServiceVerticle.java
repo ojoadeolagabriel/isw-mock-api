@@ -65,8 +65,7 @@ public class RestMockServiceVerticle extends MockServiceBaseVerticle {
                     if (path.startsWith("//"))
                         path = path.replace("//", "/");
 
-                    persistProxyRoute(path, verb, headers, status, contentType, contentEncoding,
-                            responseBody, requestId, delay, timeOut, routeType, env, createdBy, group);
+                    persistProxyRoute(path, verb, headers, status, contentType, contentEncoding, responseBody, requestId, delay, timeOut, routeType, env, createdBy, group);
                     int mockPort = SpringContext.getConfig().mockPort;
                     String response = buildResponse("9000",
                             String.format("Route at url - [ http://localhost:%d/%s%s ] is now available", mockPort, environment, path));
