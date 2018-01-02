@@ -26,7 +26,7 @@ public class MockProxyGatewayInitializer {
 
         Log log = new Log();
         log.setLogType(LogType.STARTING_SERVICE.getLogType());
-        log.setLogMessage("Instance restart was detected! kindly confirm from the system admin that this was the intended action [ no reason given]");
+        log.setLogMessage("Instance restart was detected! kindly confirm from the system admin that this was the intended action [no reason given]");
         log.setLogStackTrace("TRIGGERED_BY_SYS_ADMIN");
         log.setLogDate(DateTime.now().toDate().getTime());
 
