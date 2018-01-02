@@ -115,7 +115,6 @@ public class RestMockServiceVerticle extends MockServiceBaseVerticle {
                 }
             }
         } else {
-            activeProcessingRoute.disable();
             isRouteEnabled = false;
         }
     }

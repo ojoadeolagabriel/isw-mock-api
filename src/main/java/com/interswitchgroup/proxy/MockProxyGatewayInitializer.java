@@ -20,7 +20,8 @@ public class MockProxyGatewayInitializer {
         MockContext.init(componentConfig.mockPort, componentConfig.adminServerPort, componentConfig.xodusEntityStoreDirPath);
         List<Route> existingRoutes = ProxyRouteDao.routes();
         startExistingRoutes(existingRoutes, componentConfig.routeRuntimeDefaultEnvironment, componentConfig.processorsPerVerticle);
-        startListeners(5000, componentConfig.routeRuntimeDefaultEnvironment);
+        startListeners(1000, componentConfig.routeRuntimeDefaultEnvironment);
+        startDefaultRoutes();
 
         Log log = new Log();
         log.setLogType("process-restarted");
@@ -29,6 +30,10 @@ public class MockProxyGatewayInitializer {
         log.setLogDate(DateTime.now().toDate().getTime());
 
         LoggerRouteDao.log(log);
+    }
+
+    private static void startDefaultRoutes() {
+
     }
 
     private static void startListeners(int defaultListenerCounter, String routeRuntimeDefaultEnvironment) {
