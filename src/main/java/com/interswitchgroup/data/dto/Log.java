@@ -3,6 +3,44 @@ package com.interswitchgroup.data.dto;
 import org.joda.time.DateTime;
 
 public class Log {
+    private String logUrlInformation;
+    private String logMessageExtra;
+    private String logRequestData;
+
+    public String getLogRequestData() {
+        return logRequestData;
+    }
+
+    public void setLogRequestData(String logRequestData) {
+        this.logRequestData = logRequestData;
+    }
+
+    public String getLogResponseData() {
+        return logResponseData;
+    }
+
+    public void setLogResponseData(String logResponseData) {
+        this.logResponseData = logResponseData;
+    }
+
+    private String logResponseData;
+
+    public String getLogUrlInformation() {
+        return logUrlInformation;
+    }
+
+    public void setLogUrlInformation(String logUrlInformation) {
+        this.logUrlInformation = logUrlInformation;
+    }
+
+    public String getLogMessageExtra() {
+        return logMessageExtra;
+    }
+
+    public void setLogMessageExtra(String logMessageExtra) {
+        this.logMessageExtra = logMessageExtra;
+    }
+
     private String logMessage;
     private String logType;
 
