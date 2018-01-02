@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-5" style="display: table; overflow: auto;color: gray; display:inline-block; margin-right: 0px">
-                                    <a style="color: gray;  cursor: pointer;" th:text="${log.logMessage}" th:uuid="${log.guid}"/>
+                                    <a th:onclick="${'onShowLogDetail(''' + log.guid + ''')'}" style="color: gray;  cursor: pointer;" th:text="${log.logMessage}" th:uuid="${log.guid}"/>
                                 </div>
                                 <div class="col-sm-3" th:text="${log.logStackTrace}"></div>
                                 <div class="col-sm-1" style="width: 60px">
@@ -115,6 +115,8 @@
                     </li>
                 </ul>
             </nav>
+
+            <th:block th:include="fragments/log_detail :: log_detail"></th:block>
 
         </div>
     </div>

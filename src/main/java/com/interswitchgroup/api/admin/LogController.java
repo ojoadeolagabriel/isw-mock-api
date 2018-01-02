@@ -18,7 +18,6 @@ public class LogController extends BaseController {
         Log log = LoggerRouteDao.fetchByGuid(uuid);
         HttpHeaders httpHeaders = new HttpHeaders();
         addContentType(httpHeaders);
-
         return new ResponseEntity<>(log, httpHeaders, HttpStatus.OK);
     }
 }
