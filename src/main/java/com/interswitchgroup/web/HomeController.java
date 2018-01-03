@@ -30,7 +30,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 @Controller
-@RequestMapping("${route.admin.url}/public")
+@RequestMapping("/web/isw-api-mock/public")
 public class HomeController {
 
     @Value("${route.admin.url}")
