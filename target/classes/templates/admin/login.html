@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:fragment="route-view-head">
+    <script type="text/javascript" th:src="@{/node_modules/jquery/dist/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/node_modules/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/app.js}"></script>
+    <link rel="stylesheet" th:href="@{/node_modules/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/appCss.css}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Interswitch API Mock : Management console</title>
+    <link rel="icon" type="image/x-icon" href="https://mufasa.interswitchng.com/p/favicons/favicon_isw.png">
+</head>
+<body>
+    <div class="container">
+        <div th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <form th:action="@{/login}" method="post">
+            <div><label> User Name : <input type="text" name="username"/> </label></div>
+            <div><label> Password: <input type="password" name="password"/> </label></div>
+            <div><input type="submit" value="Sign In"/></div>
+        </form>
+    </div>
+</body>
+</html>

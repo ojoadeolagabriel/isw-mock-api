@@ -1,32 +1,38 @@
 $(document).ready(function(){
-    $('.dropdown').each(function (key, dropdown) {
-            var $dropdown = $(dropdown);
-            $dropdown.find('.dropdown-menu a').on('click', function () {
-                $dropdown.find('button').text($(this).text()).append(' <span class="caret"></span>');
 
-                var spanElement = $dropdown.parent().parent().find('key[post_value]');
-                if(spanElement.length = 1)
-                    spanElement.attr('post_value', $(this).text());
-            });
+    hljs.configure({useBR: false});
+    $('text-r cdisplay').each(function(i, block) {
+        hljs.highlightBlock(block);
     });
 
     $('.dropdown').each(function (key, dropdown) {
-            var $dropdown = $(dropdown);
-           $dropdown.find('show').on('click', function () {
-               $dropdown.find('button').text($(this).text()).append(' <span class="caret"></span>');
+        var $dropdown = $(dropdown);
+        $dropdown.find('.dropdown-menu a').on('click', function () {
+            $dropdown.find('button').text($(this).text()).append(' <span class="caret"></span>');
 
-               var spanElement = $dropdown.parent().parent().find('key[post_value]');
-               if(spanElement.length = 1)
-                   spanElement.attr('post_value', $(this).text());
-           });
+            var spanElement = $dropdown.parent().parent().find('key[post_value]');
+            if(spanElement.length = 1)
+                spanElement.attr('post_value', $(this).text());
+        });
+    });
 
-           $dropdown.find('show-message').on('click', function () {
-              $dropdown.find('button').text($(this).attr('code') + ' - ' + $(this).attr('message')).append(' <span class="caret"></span>');
+    $('.dropdown').each(function (key, dropdown) {
+        var $dropdown = $(dropdown);
+        $dropdown.find('show').on('click', function () {
+        $dropdown.find('button').text($(this).text()).append(' <span class="caret"></span>');
 
-              var spanElement = $dropdown.parent().parent().find('key[post_value]');
-              if(spanElement.length = 1)
-                  spanElement.attr('post_value', $(this).attr('code'));
-          });
+        var spanElement = $dropdown.parent().parent().find('key[post_value]');
+        if(spanElement.length = 1)
+           spanElement.attr('post_value', $(this).text());
+        });
+
+        $dropdown.find('show-message').on('click', function () {
+        $dropdown.find('button').text($(this).attr('code') + ' - ' + $(this).text()).append(' <span class="caret"></span>');
+
+        var spanElement = $dropdown.parent().parent().find('key[post_value]');
+        if(spanElement.length = 1)
+          spanElement.attr('post_value', $(this).attr('code'));
+        });
     });
 })
 
@@ -34,6 +40,38 @@ var respCode = {
     Success : "90000",
     NotFound : "10404",
     NotPermitted : "10405",
+}
+
+var logHelper = {
+    showLogDetail : function(uuid){
+        $('#log_detail_modal').modal('show');
+        $.ajax({
+            url: '/isw-mock/administration/logs/log-detail?uuid=' + uuid,
+            type: "get",
+            success : function(data) {
+                logHelper.showLogDetailInformation(data)
+            },
+            error : function(e){
+                alert(e);
+            }
+        })
+    },
+    showLogDetailInformation : function(data){
+        $("#log_detail_url").text(data.logUrlInformation);
+        $("#log_detail_extra_message").text(data.logMessageExtra);
+        $("#log_detail_stack").text(data.logStackTrace);
+        $("#log_detail_request_data").text(data.logRequestData);
+        $("#log_detail_guid").text(data.guid);
+        $("#log_detail_response_data").text(data.logResponseData);
+        $("#log_detail_message").text(data.logMessage);
+        $("#log_detail_log_type").text(data.logType);
+
+        $("#log_detail_modal").modal('show');
+    }
+}
+
+function onShowLogDetail(uuid){
+    logHelper.showLogDetail(uuid);
 }
 
 var routeHelper = {
@@ -57,7 +95,6 @@ var routeHelper = {
             responseBody : mBody,
             routeType : mRouteType
         }
-
         $.ajax({
             url: disableRoutePath,
             type: "put",
@@ -111,7 +148,7 @@ function suspend(routeId){
     $.get(routeHelper.allRoutesBasePath + '/disable?id=' + routeId, function (data) {
         var modalId = '#disable_' + routeId;
         if(data.responseCode = respCode.Success){
-            $('#btn_route_status_' + routeId).text("Enable route")
+            $('#btn_route_status_' + routeId).text("Enable Route")
             $(modalId).modal('hide');
         }else{
             alert("could not process route request! try again later")

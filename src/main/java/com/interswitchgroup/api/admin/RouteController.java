@@ -1,15 +1,20 @@
 package com.interswitchgroup.api.admin;
 
+import com.interswitchgroup.api.BaseController;
+import com.interswitchgroup.data.dao.LoggerRouteDao;
 import com.interswitchgroup.data.dao.ProxyRouteDao;
+import com.interswitchgroup.data.dto.Log;
 import com.interswitchgroup.data.dto.Route;
 import com.interswitchgroup.proxy.MockContext;
 import com.interswitchgroup.util.consts.AppConstants;
+import com.interswitchgroup.util.consts.LogType;
 import com.interswitchgroup.util.generator.NameGen;
 import com.interswitchgroup.util.response.ResponseCodes;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonObject;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +28,7 @@ import java.util.concurrent.Future;
 
 @RestController
 @RequestMapping("${route.admin.url}")
-public class RouteController {
+public class RouteController extends BaseController {
 
     @RequestMapping(value = "/routes/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<Route>> getRoutes(@PathVariable(name = "id") String id) {
@@ -66,6 +71,14 @@ public class RouteController {
             route.setResponseBody(data.getResponseBody());
             boolean isSuccess = ProxyRouteDao.updateRoute(route);
 
+            JsonObject jsonRequest = JsonObject.mapFrom(data);
+            Log log = new Log();
+            log.setLogType(LogType.UPDATE_ROUTE_INFORMATION.getLogType());
+            log.setLogMessage("API call to update route detected : " + jsonRequest.toString());
+            log.setLogStackTrace("TRIGGERED_BY_SYS_ADMIN");
+            log.setLogDate(DateTime.now().toDate().getTime());
+            LoggerRouteDao.log(log);
+
             String msg = new JsonObject().put(AppConstants.ResponseCode, isSuccess ? ResponseCodes.SUCCESS.code : ResponseCodes.NOT_FOUND.code).toString();
             return new ResponseEntity<>(msg, HttpStatus.OK);
         } else {
@@ -102,12 +115,23 @@ public class RouteController {
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/routes/disable")
-    public String disableRoute(@RequestParam(name = "id") String routeId, HttpServletResponse response) {
+    public ResponseEntity<String> disableRoute(@RequestParam(name = "id") String routeId) {
         MockContext.vertx.eventBus().publish(NameGen.generatePauseRouteHandlerDescriptor(routeId), "disable");
-        response.addHeader("Content-type", "application/json");
-        return new JsonObject()
+        HttpHeaders httpHeaders = new HttpHeaders();
+        addContentType(httpHeaders);
+
+        Log log = new Log();
+        log.setLogType(LogType.DISABLE_ROUTE.getLogType());
+        log.setLogMessage("API call to [disable route] detected : " + routeId);
+        log.setLogStackTrace("TRIGGERED_BY_SYS_ADMIN");
+        log.setLogDate(DateTime.now().toDate().getTime());
+        LoggerRouteDao.log(log);
+
+        String jsonMsg = new JsonObject()
                 .put("responseCode", ResponseCodes.SUCCESS.code)
                 .put("responseMessage", "Successfully processed request").toString();
+
+        return new ResponseEntity<>(jsonMsg, httpHeaders, HttpStatus.OK);
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -115,6 +139,14 @@ public class RouteController {
     public String enableRoute(@RequestParam(name = "id") String routeId, HttpServletResponse response) {
         MockContext.vertx.eventBus().publish(NameGen.generatePauseRouteHandlerDescriptor(routeId), "enable");
         response.addHeader("Content-type", "application/json");
+
+        Log log = new Log();
+        log.setLogType(LogType.ENABLE_ROUTE.getLogType());
+        log.setLogMessage("API call to [enable route] detected : " + routeId);
+        log.setLogStackTrace("TRIGGERED_BY_SYS_ADMIN");
+        log.setLogDate(DateTime.now().toDate().getTime());
+        LoggerRouteDao.log(log);
+
         return new JsonObject()
                 .put("responseCode", ResponseCodes.SUCCESS.code)
                 .put("responseMessage", "Successfully processed request").toString();

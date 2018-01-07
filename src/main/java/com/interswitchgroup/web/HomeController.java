@@ -1,5 +1,6 @@
 package com.interswitchgroup.web;
 
+import com.interswitchgroup.api.BaseController;
 import com.interswitchgroup.config.ComponentConfig;
 import com.interswitchgroup.data.dao.HttpStatusCodeDao;
 import com.interswitchgroup.data.dao.ProxyRouteDao;
@@ -18,9 +19,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -28,7 +32,7 @@ import java.util.concurrent.Future;
 
 @Controller
 @RequestMapping("/web/isw-api-mock/public")
-public class HomeController {
+public class HomeController extends BaseController {
 
     @Value("${route.admin.url}")
     String routeAdminUrl;
@@ -38,13 +42,18 @@ public class HomeController {
     @Autowired
     HttpStatusCodeDao httpStatusCodeDao;
 
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
     @RequestMapping("/home")
-    public Future<ModelAndView> home(@RequestParam(value = "btnFilterRoute",required = false) String filterCriteria){
+    public Future<ModelAndView> home(@RequestParam(value = "btnFilterRoute", required = false) String filterCriteria){
         CompletableFuture<ModelAndView> future = new CompletableFuture<>();
         List<CompletableFuture<String>> tasks = new ArrayList<>();
 
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("routesUrl", "http://<host_url>:" + componentConfig.adminServerPort + routeAdminUrl + "/routes");
+        modelAndView.addObject("routesUrl", "http://" + hostIp() + ":" + componentConfig.adminServerPort + routeAdminUrl + "/routes");
         List<HttpStatusCodeInfo> codes = httpStatusCodeDao.codes();
         modelAndView.addObject("httpStatusCode", codes);
 
@@ -70,6 +79,11 @@ public class HomeController {
         CompletableFuture.allOf(tasks.toArray(new CompletableFuture[tasks.size()])).join();
         future.complete(modelAndView);
         return future;
+    }
+
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String error() {
+        return "error";
     }
 
     public CompletableFuture<String> getStatus(String id) {

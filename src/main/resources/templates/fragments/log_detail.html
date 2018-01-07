@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<div th:fragment="log_detail">
+    <div id="log_detail_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="font-size: 12px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">ID: <label id="log_detail_guid"></label></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Log Type:</label>
+                            <div class="col-sm-9">
+                                <u><label class="form-control-static" id="log_detail_log_type"></label></u>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Log Message:</label>
+                            <div class="col-sm-9" style="display:inline-block;overflow: auto;">
+                                <inx class="form-control-static" id="log_detail_message"></inx>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Url Info:</label>
+                            <div class="col-sm-9">
+                                <u><label class="form-control-static" id="log_detail_url"></label></u>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Extra:</label>
+                            <div class="col-sm-9">
+                                <u><label class="form-control-static" id="log_detail_extra_message"></label></u>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Extra:</label>
+                            <div class="col-sm-9">
+                                <u><label class="form-control-static" id="log_detail_stack"></label></u>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Request:</label>
+                            <div class="col-sm-9">
+                                <u><label class="form-control-static" id="log_detail_request_data"></label></u>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Response:</label>
+                            <div class="col-sm-9">
+                                <u><label class="form-control-static" id="log_detail_response_data"></label></u>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button style="background-color: #f44336;" type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

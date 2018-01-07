@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="fragments/header :: route-view-head"></th:block>
-<body style="background-color:#F5F3EE">
+<body style="background-color:#F5F3EE; font-family: proxima_nova_softregular">
 <th:block th:include="fragments/top_navbar :: top_navbar"></th:block>
 
 <div class="container">
@@ -11,28 +11,113 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                 aria-hidden="true">&times;</span></button>
         <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
-        <strong>New feature update!</strong> You can not pull logs.
+        <strong>New feature update!</strong> You can now view log details by clicking on the message below.
     </div>
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="list-group">
                 <label href="#" class="list-group-item active">
-                    How much data do u need
+                    Select interval
                 </label>
-                <a href="#" class="list-group-item"> view last 5 mins</a>
-                <a href="#" class="list-group-item">view last 10 mins</a>
-                <a href="#" class="list-group-item">view last 20 mins</a>
-                <a href="#" class="list-group-item">view last 30 mins</a>
-                <a href="#" class="list-group-item">view last 1 hour</a>
+                <a href="logs?interval=5" class="list-group-item"> view last 5 mins</a>
+                <a href="logs?interval=10" class="list-group-item">view last 10 mins</a>
+                <a href="logs?interval=20" class="list-group-item">view last 20 mins</a>
+                <a href="logs?interval=30" class="list-group-item">view last 30 mins</a>
+                <a href="logs?interval=45" class="list-group-item">view last 45 mins</a>
+                <a href="logs?interval=60" class="list-group-item">view last 1 hour</a>
+                <a href="logs?interval=120" class="list-group-item">view last 2 hours</a>
             </div>
         </div>
-        <div class="col-md-9">
-            <div class="panel panel-default" style="height: 400px">
-                <div class="panel-body">
-                    last <label th:text="${param.interval + ' minutes...'}" class="label label-primary"/>
+        <div class="col-md-10">
+            <div class="panel panel-default" style="min-height: 500px">
+                <div>
+                    <div class="panel-body">
+                        <form method="post" action="" modelAttribute="searchFormData">
+                            <div class="input-group">
+                                <input type="text" class="form-control" style="background-color: #FDF5E6"
+                                       placeholder="Filter log messages.." name="btnFilterRoute">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" style="background-color:#F5F5F5" type="submit"><span
+                                            class="glyphicon glyphicon-search"/></button>
+                                </span>
+                            </div>
+                            <input id="filterInterval" name="filterInterval" type="hidden"
+                                   th:value="${param.interval}"/>
+                        </form>
+
+                        <br>
+
+                        <label th:text="${#lists.size(data)}"/> entries over the last <label
+                            th:text="${param.interval + ' minutes...'}" class="label label-success"/>
+                        <hr>
+                        <div th:each="log,rowStat : ${data}">
+                            <div class="row custom-hover-light container-fluid"
+                                 style="font-size: 13px;border-bottom: 1px solid #FAF9F9">
+                                <div style="color: #c0c0c0; width: 15px" class="col-sm-1" th:text="${rowStat.index} + '.'"></div>
+                                <div th:switch="${log.logType}">
+                                    <div th:case="'instance-restart'" class="col-sm-2"><label class="label label-danger"
+                                                                                              th:text="${log.logType}"/>
+                                    </div>
+                                    <div th:case="'process-restarted'"  class="col-sm-2">
+                                        <label class="label label-danger" style="background-color: #f44336" th:text="${log.logType}"/>
+                                    </div>
+                                    <div th:case="'new-route'" class="col-sm-2"><label class="label label-warning"
+                                                                                       th:text="${log.logType}"/></div>
+                                    <div th:case="'new-request'" class="col-sm-2"><label class="label label-default"
+                                                                                         th:text="${log.logType}"/>
+                                    </div>
+                                    <div th:case="'route-update'"  class="col-sm-2">
+                                        <label style="background-color: #337ab7" class="label label-info" th:text="${log.logType}"/>
+                                    </div>
+                                    <div th:case="'route-info-updated'"  class="col-sm-2">
+                                        <label style="background-color: #3D9970" class="label label-success" th:text="${log.logType}"/>
+                                    </div>
+                                    <div th:case="'disable-route-event'" class="col-sm-2"><label
+                                            style="background-color: gray" class="label label-success"
+                                            th:text="${log.logType}"/>
+                                    </div>
+                                    <div th:case="'enable-route-event'" class="col-sm-2"><label
+                                            style="background-color: gray" class="label label-success"
+                                            th:text="${log.logType}"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5" style="display: table; overflow: auto;color: gray; display:inline-block; margin-right: 0px">
+                                    <a th:onclick="${'onShowLogDetail(''' + log.guid + ''')'}" style="color: gray;  cursor: pointer;" th:text="${log.logMessage}" th:uuid="${log.guid}"/>
+                                </div>
+                                <div class="col-sm-3" th:text="${log.logStackTrace}"></div>
+                                <div class="col-sm-1" style="width: 60px">
+                                    <p th:text="${log.getDateTimeCreatedMessage()}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-sm">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <th:block th:include="fragments/log_detail :: log_detail"></th:block>
+
         </div>
     </div>
 

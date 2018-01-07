@@ -24,6 +24,16 @@ public class Route {
     private String routeType;
     private String timeout;
 
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    private String group;
+
     public String getResponseMessage() {
         try{
             return HttpStatus.valueOf(Integer.parseInt(responseStatus)).name();

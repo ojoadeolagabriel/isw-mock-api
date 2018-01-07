@@ -13,9 +13,7 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.interswitchgroup.util.consts.AppConstants.CreatedBy;
-import static com.interswitchgroup.util.consts.AppConstants.DateCreated;
-import static com.interswitchgroup.util.consts.AppConstants.Environment;
+import static com.interswitchgroup.util.consts.AppConstants.*;
 
 public class ProxyRouteDao {
     public static final String RouteSchema = "Route";
@@ -24,7 +22,7 @@ public class ProxyRouteDao {
         StoreTransaction txn = MockContext.store.beginTransaction();
         List<Route> routes = new ArrayList<>();
         try {
-            EntityIterable entities = txn.findStartingWith(RouteSchema, AppConstants.RequestId, id);
+            EntityIterable entities = txn.findStartingWith(RouteSchema, AppConstants.RequestId, id).reverse();
             for (Entity entity : entities) {
                 Route routeEntity = getRoute(entity);
                 routes.add(routeEntity);
@@ -74,6 +72,7 @@ public class ProxyRouteDao {
         routeEntity.setRouteType(StringUtility.parseString(entity.getProperty(AppConstants.RouteType)));
         routeEntity.setCreatedBy(StringUtility.parseString(entity.getProperty(AppConstants.CreatedBy), "Sysadmin"));
         routeEntity.setEnvironment(StringUtility.parseString(entity.getProperty(Environment), "uat"));
+        routeEntity.setGroup(StringUtility.parseString(entity.getProperty(Group), "default"));
 
         String dateTimeString = StringUtility.parseString(entity.getProperty(DateCreated), String.valueOf(DateTime.now().toDate().getTime()));
         routeEntity.setDateCreated(Long.valueOf(dateTimeString));
@@ -109,7 +108,7 @@ public class ProxyRouteDao {
 
     public static void persistRoute(String path, String verb, String headers, String status, String contentType,
                                     String contentEncoding, String responseBody, String requestId, int delay, int timeOut,
-                                    String routeType, String createdBy) {
+                                    String routeType, String createdBy, String group) {
         StoreTransaction txn = MockContext.store.beginTransaction();
         try {
             Entity route = txn.newEntity(RouteSchema);
@@ -126,6 +125,7 @@ public class ProxyRouteDao {
             route.setProperty(AppConstants.RouteType, routeType);
             route.setProperty(DateCreated, DateTime.now().toDate().getTime());
             route.setProperty(CreatedBy, createdBy);
+            route.setProperty(AppConstants.Group, group);
             txn.commit();
         } catch (Exception e) {
 

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="fragments/header :: route-view-head"></th:block>
-<body style="background-color:#F5F3EE">
+<body style="background-color:#F5F3EE;font-family: proxima_nova_softregular">
 <th:block th:include="fragments/top_navbar :: top_navbar"></th:block>
 
-<div class="container">
+<div class="container" >
     <br>
     <form method="post" action="" modelAttribute="searchFormData">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for a route starting with..." name="btnFilterRoute">
+            <input type="text" class="form-control" placeholder="Filter routes starting with..." name="btnFilterRoute" >
             <span class="input-group-btn">
                 <button class="btn btn-default" style="background-color:#F5F5F5" type="submit"><span
                         class="glyphicon glyphicon-search"/></button>
@@ -16,8 +16,9 @@
         </div>
     </form>
 
-    <div class="row" style="padding-bottom: 15px; color:gray;font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-weight: 500">
-        <div class="col-md-6 text-left"><small>view api-logs for the last <u><a href="logs?interval=15">15 mins</a></u> | <u><a href="logs?interval=30">30 mins</a></u> | <u><a href="logs?interval=60">1 hour</a></u></small></div>
+
+    <div class="row" style="padding-bottom: 15px; color:gray; font-weight: 500">
+        <div class="col-md-6 text-left"><small>view logs over the last - <u><a href="logs?interval=15">15 mins</a></u> | <u><a href="logs?interval=30">30 mins</a></u> | <u><a href="logs?interval=60">1 hour</a></u></small></div>
         <div class="col-md-6 text-right">
             <small><label style="color:gray;font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-weight: 500"
                           th:text="'// ' + ${routesUrl} + ' / 1000 ms'"/></small>
@@ -34,7 +35,7 @@
         <div class="panel panel-default">
             <th:block th:include="fragments/route-panel-body :: route-panel-body"></th:block>
             <th:block th:include="fragments/route-panel-footer :: route-panel-footer"></th:block>
-            <th:block th:include="fragments/edit_details_view :: edit_details_view"></th:block>
+            <th:block th:include="fragments/display_details_view :: display_details_view"></th:block>
             <th:block th:include="fragments/modify_details_view :: modify_details_view"></th:block>
         </div>
     </div>

@@ -20,7 +20,6 @@ import java.util.List;
 public class LogContoller {
     @Value("${route.admin.url}")
     String routeAdminUrl;
-
     @Autowired
     ComponentConfig componentConfig;
     @Autowired
@@ -29,6 +28,16 @@ public class LogContoller {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView log(@RequestParam(required = false, defaultValue = "15") int interval) {
         List<Log> fetch = LoggerRouteDao.fetch(DateTime.now().plusMinutes(-interval).toDate().getTime(), DateTime.now().toDate().getTime());
+        ModelAndView modelAndView = new ModelAndView("logs");
+        modelAndView.addObject("data", fetch);
+        return modelAndView;
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView post(
+            @RequestParam(required = false, defaultValue = "120") int filterInterval,
+            @RequestParam(value = "btnFilterRoute", required = false) String filterCriteria) {
+        List<Log> fetch = LoggerRouteDao.fetchAndFilterByDesc(filterCriteria, DateTime.now().plusMinutes(-filterInterval).toDate().getTime(), DateTime.now().toDate().getTime());
         ModelAndView modelAndView = new ModelAndView("logs");
         modelAndView.addObject("data", fetch);
         return modelAndView;

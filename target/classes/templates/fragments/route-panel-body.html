@@ -5,7 +5,7 @@
 </head>
 <div class="container" th:fragment="route-panel-body">
     <div class="panel-body" th:id="${'panel_body_' + route.requestId}">
-        <h3 class="card-title"><span th:text="${route.requestId}"/></h3>
+        <h4 class="card-title"><span class="text-lowercase" th:text="${route.requestId}"/></h4>
         <p class="card-text">
             <u>tags:</u> <span class="label label-warning" th:text="${route.path}"/>
             <span class="label label-success" th:text="${route.contentType}"/>
@@ -13,9 +13,8 @@
             <span class="label label-primary" th:text="${route.responseStatus}"/>
             <!--<span  class="label label-primary" th:text="${route.isOnline()}" th:id="${'panel_body_' + route.requestId + '_status'}"/>-->
             <span style="background-color: #f44336"  class="label label-danger" th:text="${route.routeType}"/>
-            <span style="background-color: #f44336" class="label label-danger" th:text="${#strings.toLowerCase(route.createdBy)}"/>
+            <!--<span style="background-color: #f44336" class="label label-danger" th:text="${#strings.toLowerCase(route.createdBy)}"/>-->
         </p>
-
     </div>
 </div>
 </html>
