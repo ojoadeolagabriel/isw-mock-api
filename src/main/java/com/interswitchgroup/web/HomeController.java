@@ -1,5 +1,6 @@
 package com.interswitchgroup.web;
 
+import com.interswitchgroup.api.BaseController;
 import com.interswitchgroup.config.ComponentConfig;
 import com.interswitchgroup.data.dao.HttpStatusCodeDao;
 import com.interswitchgroup.data.dao.ProxyRouteDao;
@@ -31,7 +32,7 @@ import java.util.concurrent.Future;
 
 @Controller
 @RequestMapping("/web/isw-api-mock/public")
-public class HomeController {
+public class HomeController extends BaseController {
 
     @Value("${route.admin.url}")
     String routeAdminUrl;
@@ -52,13 +53,7 @@ public class HomeController {
         List<CompletableFuture<String>> tasks = new ArrayList<>();
 
         ModelAndView modelAndView = new ModelAndView("index");
-        String ip = "<host_url>";
-        try {
-            ip = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        modelAndView.addObject("routesUrl", "http://" + ip + ":" + componentConfig.adminServerPort + routeAdminUrl + "/routes");
+        modelAndView.addObject("routesUrl", "http://" + hostIp() + ":" + componentConfig.adminServerPort + routeAdminUrl + "/routes");
         List<HttpStatusCodeInfo> codes = httpStatusCodeDao.codes();
         modelAndView.addObject("httpStatusCode", codes);
 
