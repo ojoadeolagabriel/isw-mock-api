@@ -100,12 +100,12 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
-            <version>3.5.0</version>
+            <version>4.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-web</artifactId>
-            <version>3.5.0</version>
+            <version>3.9.4</version>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
@@ -115,7 +115,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>1.5.9.RELEASE</version>
+            <version>2.5.12</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.xodus</groupId>
