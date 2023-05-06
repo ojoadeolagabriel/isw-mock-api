@@ -100,7 +100,7 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
-            <version>3.5.0</version>
+            <version>3.9.7</version>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
@@ -115,7 +115,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>1.5.9.RELEASE</version>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.xodus</groupId>
@@ -130,7 +130,7 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.6</version>
+            <version>2.7</version>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf</groupId>
@@ -160,7 +160,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>23.0</version>
+            <version>30.0-android</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.xodus</groupId>
